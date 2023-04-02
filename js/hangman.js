@@ -10,6 +10,7 @@ const words = [
 let guess = [];
 let wordInProgress = null;
 
+let score = 0;
 
 let wordToGuess = document.getElementById('wordToGuess');
 
@@ -158,6 +159,8 @@ function drawRightArm() {
     ctx.stroke();
 }
 
+
+
 function drawLeftLeg() {
     var ctx = canvas.getContext('2d');
     ctx.beginPath();
@@ -195,7 +198,6 @@ function drawHangman() {
         else if (incorrectGuesses === 6) {
             drawRightLeg();
         }
-        console.log(incorrectGuesses);
     }
 }
 
