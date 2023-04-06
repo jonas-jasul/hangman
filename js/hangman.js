@@ -10,8 +10,72 @@ const words = [
 let guess = [];
 let wordInProgress = null;
 
-let score = 0;
 
+let score = 0;
+score = localStorage.getItem('score');
+
+let scoreDisplay = document.getElementById('score');
+
+scoreDisplay.innerHTML = score;
+
+function increaseScore(scoreOld) {
+    // score = Number(score) + 100;
+    score = Number(score);
+    score = Number(scoreOld) + score;
+    let sec = secondsPassed();
+    score = Number(scoreOld) + (100 - (incorrectGuesses*10) - (sec));
+    if(score < scoreOld) {
+        score = scoreOld;
+    }
+
+    console.log();
+    scoreDisplay.innerHTML = score;
+    localStorage.setItem('score', score);
+
+}
+
+function resetScore() {
+    score = 0;
+    scoreDisplay.innerHTML = score;
+    localStorage.setItem('score', score);
+}
+// resetScore();
+
+let [miliseconds, seconds, minutes] = [0, 0, 0];
+let stopwatch = document.querySelector('.stopwatch');
+let interval = null;
+
+
+function startStopwatch() {
+    interval = setInterval(incrementTime, 1);
+}
+
+function secondsPassed() {
+    let secondsPassedVar;
+    secondsOnly = Number(stopwatch.innerHTML.split(':')[1]);
+    minutesOnly = Number(stopwatch.innerHTML.split(':')[0]);
+
+    secondsPassedVar = (minutesOnly * 60) + secondsOnly;
+    return secondsPassedVar;
+}
+
+function incrementTime() {
+    miliseconds += 10;
+    if (miliseconds == 1000) {
+        miliseconds = 0;
+        seconds++;
+        if (seconds == 60) {
+            seconds = 0;
+            minutes++
+        }
+    }
+    stopwatch.innerHTML = `${minutes} : ${seconds} : ${miliseconds}`;
+    // secondsPassed();
+}
+
+
+
+startStopwatch();
 let wordToGuess = document.getElementById('wordToGuess');
 
 let allowedGuesses = 6;
@@ -124,7 +188,7 @@ function drawGallows() {
     ctx.lineTo(150, 20);
     ctx.lineWidth = 1.5;
     ctx.stroke();
-   
+
 }
 
 drawGallows();
@@ -132,7 +196,7 @@ drawGallows();
 function drawHead() {
     var ctx = canvas.getContext('2d');
     ctx.beginPath();
-    ctx.arc(150,30, 10, 0, 2 * Math.PI);
+    ctx.arc(150, 30, 10, 0, 2 * Math.PI);
     ctx.stroke();
 }
 
@@ -232,7 +296,9 @@ function keyPress(letter) {
         drawWord();
     }
 }
+
 function winScreen() {
+    increaseScore(score);
     let elementsToRemove = document.getElementsByClassName('hangmanDiv');
     elementsToRemove[0].parentNode.removeChild(elementsToRemove[0]);
     for (let i = 0; i < btns.length; i++) {
@@ -249,11 +315,12 @@ function winScreen() {
         location.reload();
     }
     );
-
+    clearInterval(interval);
 
 
 }
 
+let keyboard = document.querySelector('.letterButtons');
 
 function loseScreen() {
     for (let i = 0; i < btns.length; i++) {
@@ -261,8 +328,8 @@ function loseScreen() {
     }
 
     let block_to_insert = document.createElement('div');
-    block_to_insert.id='loseScreen';
-    block_to_insert.innerHTML='<h1>YOU LOSE!</h1> <button id="playAgain">Play Again</button>';
+    block_to_insert.id = 'loseScreen';
+    block_to_insert.innerHTML = '<h1>YOU LOSE!</h1> <button id="playAgain">Play Again</button>';
     let container = document.getElementById('container');
     container.appendChild(block_to_insert);
 
@@ -271,8 +338,14 @@ function loseScreen() {
         location.reload();
     }
     );
+    clearInterval(interval);
+    //hide keyboard
+
+    keyboard.style.display = 'none';
+
 
 }
+
 
 function drawWord() {
     let answerArray = [];

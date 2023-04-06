@@ -16,7 +16,7 @@
         <div class="mainBackground">
             <div class="gameplayWindow">
                 <div id="scoreDiv">
-                    <span id="scoreText">Score: </span> <span id="score">ss</span>
+                    <span id="scoreText">Score: </span> <span id="score"></span>
                 </div>
                 <div class="guessingWordDiv">
 
@@ -30,7 +30,13 @@
                     <canvas id="canvas"></canvas>
                 </div>
 
-                <div id="container"></div>
+                <div id="container">
+                    <div class="stopwatch">
+                        <div class="stopwatch-time">
+                            <span id="minutes">00</span>:<span id="seconds">00</span>:<span id="miliseconds">0000</span>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="letterButtons">
                     <button class="keyboardBtn" id="A">A</button>
