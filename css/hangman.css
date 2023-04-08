@@ -152,6 +152,9 @@ canvas {
     text-shadow: 2px 2px 2px black;
 }
 
+#enterBtn {
+    margin-top: 2vh;
+}
 #loseScreen {
     display: flex;
     flex-direction: column;

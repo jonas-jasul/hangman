@@ -23,9 +23,10 @@ function increaseScore(scoreOld) {
     score = Number(score);
     score = Number(scoreOld) + score;
     let sec = secondsPassed();
-    score = Number(scoreOld) + (100 - (incorrectGuesses*10) - (sec));
-    if(score < scoreOld) {
+    score = Number(scoreOld) + (100 - (incorrectGuesses * 10) - (sec));
+    if (score < scoreOld) {
         score = scoreOld;
+        score = Number(score) + 5;
     }
 
     console.log();
@@ -360,3 +361,7 @@ function drawWord() {
     wordToGuess.innerHTML = answerArray.join(' ');
 
 }
+
+// import { chosenCategory } from "./index.js";
+// let categoryDisplay = document.getElementById('categoryDisplay');
+// categoryDisplay.innerHTML = chosenCategory;
