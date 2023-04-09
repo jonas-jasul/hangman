@@ -1,18 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/hangman.css">
-    <title>Hangman</title>
-</head>
-<body>
-    <div class="mainBackground">
-        <div class="startWindow">
-            <h3>Welcome to the Hangman game!</h3>
-            <button><a href="gameWindow.html">ENTER</a></button>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./css/hangman.css">
+        <title>Hangman</title>
+    </head>
+
+    <body>
+        <div class="mainBackground">
+            <div class="startWindow">
+                <div id="languageDiv">
+                    <span><button class="languageBtn">EN</button></span> <span><button
+                            class="languageBtn">LT</button></span>
+                </div>
+                <h3 id="welcomeHeading">Welcome to the Hangman game!</h3>
+                <span>Select a category:</span>
+                <!-- <select title="category" id="category" name="category">
+                    <option value="animals">Animals</option>
+                    <option value="countries">Countries</option>
+                    <option value="fruits">Fruits</option>
+                    <option value="vegetables">Vegetables</option>
+                </select> -->
+
+                <div class="categoryDiv">
+                    <div class="specCategDiv" id="animalCategoryDiv">
+                        <img src="./img/animal.png" alt="animal" class="categoryImg" data-category="animals">
+                        <p>Animals</p>
+                    </div>
+                    <div class="specCategDiv" id="contryCategoryDiv">
+                        <img src="./img/country.png" alt="country" class="categoryImg" data-category="countries">
+                        <p>Countries</p>
+                    </div>
+
+                </div>
+                <br>
+                <button id="enterBtn"><a id="enterHref">ENTER</a></button>
+            </div>
         </div>
-    </div>
-</body>
+    </body>
+    <script type="module" src="js/index.js"></script>
+
 </html>

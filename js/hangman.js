@@ -1,14 +1,75 @@
-
-const words = [
-    'BAD',
-    'DAD',
-    'DAB',
-    'DECADE',
-    'SICK',
-    'LIT'
-]
 let guess = [];
 let wordInProgress = null;
+
+let vegetables = [
+    'carrot',
+    'broccoli',
+    'cauliflower',
+    'cucumber',
+    'tomato',
+    'potato',
+    'onion',
+    'garlic',
+    'spinach',
+    'lettuce',
+    'celery',
+    'asparagus',
+    'mushroom',
+    'peas',
+    'zucchini',
+    'corn',
+    'beetroot',
+    'radish',
+];
+
+vegetables=vegetables.map(function(item){
+    return item.toUpperCase();
+});
+
+
+
+
+
+// let animals = [
+//     'dog',
+//     'cat',
+//     'mouse',
+//     // 'rat',
+//     // 'rabbit',
+//     // 'hamster',
+//     // 'gerbil',
+//     // 'ferret',
+//     // 'turtle',
+//     // 'lizard',
+//     // 'snake',
+//     // 'frog',
+//     // 'toad',
+//     // 'fish',
+//     // 'shark',
+//     // 'dolphin',
+//     // 'whale',
+//     // 'seal',
+//     // 'penguin',
+//     // 'parrot',
+//     // 'canary',
+//     // 'chicken',
+//     // 'duck',
+//     // 'goose',
+//     // 'horse',
+//     // 'donkey',
+//     // 'sheep',
+//     // 'goat',
+//     // 'pig',
+//     // 'cow',
+//     // 'bull',
+//     // 'elephant',
+//     // 'giraffe',
+//     // 'zebra',
+//     // 'lion',
+//     // 'tiger',
+//     // 'leopard',
+//     // 'monkey'
+// ];
 
 
 let score = 0;
@@ -23,10 +84,9 @@ function increaseScore(scoreOld) {
     score = Number(score);
     score = Number(scoreOld) + score;
     let sec = secondsPassed();
-    score = Number(scoreOld) + (100 - (incorrectGuesses * 10) - (sec));
-    if (score < scoreOld) {
+    score = Number(scoreOld) + (100 - (incorrectGuesses*10) - (sec));
+    if(score < scoreOld) {
         score = scoreOld;
-        score = Number(score) + 5;
     }
 
     console.log();
@@ -48,13 +108,13 @@ let interval = null;
 
 
 function startStopwatch() {
-    interval = setInterval(incrementTime, 1);
+    interval = setInterval(incrementTime, 10);
 }
 
 function secondsPassed() {
     let secondsPassedVar;
-    secondsOnly = Number(stopwatch.innerHTML.split(':')[1]);
-    minutesOnly = Number(stopwatch.innerHTML.split(':')[0]);
+    let secondsOnly = Number(stopwatch.innerHTML.split(':')[1]);
+    let minutesOnly = Number(stopwatch.innerHTML.split(':')[0]);
 
     secondsPassedVar = (minutesOnly * 60) + secondsOnly;
     return secondsPassedVar;
@@ -84,19 +144,104 @@ let incorrectGuesses = 0;
 let correctGuesses = 0;
 let correctGuessesIndices = [];
 
-const randWord = words[Math.floor((Math.random() * words.length))];
 
-const hints = [
-    'A person who is not good',
-    'A parent',
-    'A move in dance',
-    'A period of 10 years',
-    'Not healthy',
-    'Cool'
+let categorySelected = localStorage.getItem('categorySelected');
+console.log(categorySelected);
+let categoryDisplay = document.getElementById('categoryDisplay');
+categoryDisplay.innerHTML = categorySelected;
+
+//alternatyvus budas gauti kategorija is url
+var params = new URLSearchParams(window.location.search);
+let category = params.get('category');
+
+let animals = [
+    {word: "dog", hint: "woof"},
+    {word: "cat", hint: "meow"},
+    {word: "mouse", hint: "squeak"},
+    {word: "rat", hint: "squeak"},
+    {word: "rabbit", hint: "carrots"},
+    {word: "hamster", hint: "Rodent"},
+    {word: "turtle", hint: "shell"},
+    {word: "lizard", hint: "scales"},
+    {word: "snake", hint: "hiss"},
+    {word: "frog", hint: "I'm usually green and slimy"},
+    {word: "toad", hint: "I have a dull and warty skin"},
+    {word: "fish", hint: "sea"},
+
+];
+
+let countries = [
+    {word: "Lithuania", hint: "Vilnius"},
+    {word: "Latvia", hint: "Riga"},
+    {word: "Estonia", hint: "Tallinn"},
+    {word: "Finland", hint: "Helsinki"},
+    {word: "Sweden", hint: "Stockholm"},
+    {word: "Norway", hint: "Oslo"},
+    {word: "Denmark", hint: "Copenhagen"},
+    {word: "Iceland", hint: "Reykjavik"},
+    {word: "Ireland", hint: "Dublin"},
+    {word: "England", hint: "London"},
+    {word: "Scotland", hint: "Edinburgh"},
+    {word: "Wales", hint: "Cardiff"},
+    {word: "France", hint: "Paris"},
+    {word: "Spain", hint: "Madrid"},
+    {word: "Portugal", hint: "Lisbon"},
+    {word: "Italy", hint: "Rome"},
+    {word: "Greece", hint: "Athens"},
+    {word: "Turkey", hint: "Ankara"},
+    {word: "Russia", hint: "Moscow"},
+    {word: "Ukraine", hint: "Kiev"},
+    {word: "Belarus", hint: "Minsk"},
+    {word: "Poland", hint: "Warsaw"},
+    {word: "Germany", hint: "Berlin"},
+    {word: "Austria", hint: "Vienna"},
+    {word: "Switzerland", hint: "Bern"},
+    {word: "Netherlands", hint: "Amsterdam"},
+    {word: "Belgium", hint: "Brussels"},
+    {word: "Luxembourg", hint: "Luxembourg"},
+    {word: "Czechia", hint: "Prague"},
+    {word: "Slovakia", hint: "Bratislava"},
+    {word: "Hungary", hint: "Budapest"},
+    {word: "Slovenia", hint: "Ljubljana"},
+    {word: "Croatia", hint: "Zagreb"},
+    {word: "Serbia", hint: "Belgrade"},
+    {word: "Macedonia", hint: "Skopje"},
 ]
 
-let hint = document.getElementById('hint');
-hint.innerHTML = hints[words.indexOf(randWord)];
+//pavercia zodzius is zodziu objekto i didziasias raides 
+Object.keys(animals).forEach(key =>  {
+    animals[key].word = animals[key].word.toUpperCase();
+})
+
+Object.keys(countries).forEach(key => {
+    countries[key].word = countries[key].word.toUpperCase();
+})
+
+function chooseWordByCategory() {
+    categorySelected = localStorage.getItem('categorySelected');
+    if (categorySelected == 'vegetables') {
+        return vegetables[Math.floor(Math.random() * vegetables.length)];
+    } else if (categorySelected == 'countries') {
+        let randomIndex = Math.floor(Math.random() * countries.length);
+        this.randWord= countries[randomIndex].word;
+        this.hint=countries[randomIndex].hint;
+    } else if (categorySelected == 'animals') {
+        let randomIndex = Math.floor(Math.random() * animals.length);
+        this.randWord= animals[randomIndex].word;
+        this.hint = animals[randomIndex].hint;
+    }
+}
+
+let wordObj = new chooseWordByCategory();
+let randWord = wordObj.randWord;
+console.log(randWord);
+// const randWord = words[Math.floor((Math.random() * words.length))];
+
+// let randWord = chooseWordByCategory();
+// let hint = chooseHint();
+
+let hintElement = document.getElementById('hint');
+hintElement.innerHTML = wordObj.hint;
 
 
 const answerArray = [];
@@ -284,11 +429,12 @@ function keyPress(letter) {
                 if (randWord[i] === letter) {
                     correctGuessesIndices.push(i);
                     remainingLetters--;
-
+                    
                 }
             }
         }
         if (remainingLetters === 0) {
+            
             winScreen();
         }
         else {
@@ -359,9 +505,5 @@ function drawWord() {
         }
     }
     wordToGuess.innerHTML = answerArray.join(' ');
-
 }
 
-// import { chosenCategory } from "./index.js";
-// let categoryDisplay = document.getElementById('categoryDisplay');
-// categoryDisplay.innerHTML = chosenCategory;

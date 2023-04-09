@@ -15,16 +15,23 @@
     <body>
         <div class="mainBackground">
             <div class="gameplayWindow">
-                <div id="scoreDiv">
-                    <span id="scoreText">Score: </span> <span id="score"></span>
+                <div id="topRow">
+                    <div id="backButtonDiv">
+                        <button id="backButton"><span><img width="25" alt="" src="./img/BackIcon.svg"> <a id="backButtonHref" href="./index.html">BACK</a></span></button>
+                    </div>
+                    <div id="scoreDiv">
+                        <span id="scoreText">Score: </span> <span id="score"></span>
+                    </div>
                 </div>
-                <div class="guessingWordDiv">
 
+                <div class="guessingWordDiv">
+                    <span id="categoryText">Category:</span> <span id="categoryDisplay"></span>
+                    <br>
                     <span id="hintText">Hint: </span> <span id="hint"></span>
                     <br>
                     <span id="wordToGuess"></span>
                 </div>
-                
+
 
                 <div class="hangmanDiv">
                     <canvas id="canvas"></canvas>
@@ -71,4 +78,5 @@
     </body>
 
 </html>
-<script type="text/javascript" src="js/hangman.js"></script>
+<script type="module" src="js/hangman.js"></script>
+<script type="module" src="js/index.js"></script>
