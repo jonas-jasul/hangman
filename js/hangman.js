@@ -28,50 +28,6 @@ vegetables=vegetables.map(function(item){
 
 
 
-
-
-// let animals = [
-//     'dog',
-//     'cat',
-//     'mouse',
-//     // 'rat',
-//     // 'rabbit',
-//     // 'hamster',
-//     // 'gerbil',
-//     // 'ferret',
-//     // 'turtle',
-//     // 'lizard',
-//     // 'snake',
-//     // 'frog',
-//     // 'toad',
-//     // 'fish',
-//     // 'shark',
-//     // 'dolphin',
-//     // 'whale',
-//     // 'seal',
-//     // 'penguin',
-//     // 'parrot',
-//     // 'canary',
-//     // 'chicken',
-//     // 'duck',
-//     // 'goose',
-//     // 'horse',
-//     // 'donkey',
-//     // 'sheep',
-//     // 'goat',
-//     // 'pig',
-//     // 'cow',
-//     // 'bull',
-//     // 'elephant',
-//     // 'giraffe',
-//     // 'zebra',
-//     // 'lion',
-//     // 'tiger',
-//     // 'leopard',
-//     // 'monkey'
-// ];
-
-
 let score = 0;
 score = localStorage.getItem('score');
 
@@ -368,7 +324,6 @@ function drawRightArm() {
     ctx.lineTo(170, 68);
     ctx.stroke();
 }
-
 
 
 function drawLeftLeg() {

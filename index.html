@@ -17,7 +17,7 @@
                             class="languageBtn">LT</button></span>
                 </div>
                 <h3 id="welcomeHeading">Welcome to the Hangman game!</h3>
-                <span>Select a category:</span>
+                <span class="selectChooseSpan">Select a category:</span>
                 <!-- <select title="category" id="category" name="category">
                     <option value="animals">Animals</option>
                     <option value="countries">Countries</option>
@@ -26,20 +26,43 @@
                 </select> -->
 
                 <div class="categoryDiv">
-                    <div class="specCategDiv" id="animalCategoryDiv">
-                        <img src="./img/animal.png" alt="animal" class="categoryImg" data-category="animals">
+                    <div class="specCategDiv" id="animalCategoryDiv" data-category="animals">
+                        <img src="./img/animal.png" alt="animal" class="categoryImg">
                         <p>Animals</p>
                     </div>
-                    <div class="specCategDiv" id="contryCategoryDiv">
-                        <img src="./img/country.png" alt="country" class="categoryImg" data-category="countries">
+                    <div class="specCategDiv" id="contryCategoryDiv" data-category="countries">
+                        <img src="./img/country.png" alt="country" class="categoryImg">
                         <p>Countries</p>
                     </div>
-
                 </div>
+
+                <span class="selectChooseSpan">Choose a difficulty: </span>
+                <div class="difficultyDiv">
+                    <!-- <input type="range" title="Difficulty" id="difficultyRange" min="1" max="3" value="2"> -->
+                    <!-- <span id="difficultyText"></span> -->
+                    <div class="diffDiv2">
+                        <div class="decreaseDiff"><span><button id="decreaseDiffBtn"
+                                    class="diffSlctBtn">-</button></span></div>
+                        <canvas id="difficultyCanvas"></canvas>
+                        <div class="increaseDiv"><span><button id="increaseDiffBtn"
+                                    class="diffSlctBtn">+</button></span></div>
+                    </div>
+                </div>
+                <div id="difficultyTextDiv">
+                    <span id="difficultyText">Medium</span>
+                </div>
+
                 <br>
                 <button id="enterBtn"><a id="enterHref">ENTER</a></button>
             </div>
+
+            <footer class="footer">
+                <div class="footerCont">
+                    <span>Jonas Jasulevičius 2023</span>
+                </div>
+            </footer>
         </div>
+
     </body>
     <script type="module" src="js/index.js"></script>
 
