@@ -22,7 +22,7 @@ let vegetables = [
     'radish',
 ];
 
-vegetables=vegetables.map(function(item){
+vegetables = vegetables.map(function (item) {
     return item.toUpperCase();
 });
 
@@ -40,8 +40,8 @@ function increaseScore(scoreOld) {
     score = Number(score);
     score = Number(scoreOld) + score;
     let sec = secondsPassed();
-    score = Number(scoreOld) + (100 - (incorrectGuesses*10) - (sec));
-    if(score < scoreOld) {
+    score = Number(scoreOld) + (100 - (incorrectGuesses * 10) - (sec));
+    if (score < scoreOld) {
         score = scoreOld;
     }
 
@@ -110,104 +110,246 @@ categoryDisplay.innerHTML = categorySelected;
 var params = new URLSearchParams(window.location.search);
 let category = params.get('category');
 
+let difficulty = params.get('difficulty');
+console.log(difficulty);
+
+
+let difficultyDisplay = document.getElementById('difficultyDisplay');
+function displayDifficultyGameWindow() {
+    difficultyDisplay.innerHTML = difficulty;
+
+    switch (difficulty) {
+        case "Easy":
+            difficultyDisplay.setAttribute('class', 'easy');
+            break;
+        case "Medium":
+            difficultyDisplay.setAttribute('class', 'medium');
+            break;
+
+        case "Hard":
+            difficultyDisplay.setAttribute('class', 'hard');
+            break;
+    }
+}
+
+displayDifficultyGameWindow();
+
+
 let animals = [
-    {word: "dog", hint: "woof"},
-    {word: "cat", hint: "meow"},
-    {word: "mouse", hint: "squeak"},
-    {word: "rat", hint: "squeak"},
-    {word: "rabbit", hint: "carrots"},
-    {word: "hamster", hint: "Rodent"},
-    {word: "turtle", hint: "shell"},
-    {word: "lizard", hint: "scales"},
-    {word: "snake", hint: "hiss"},
-    {word: "frog", hint: "I'm usually green and slimy"},
-    {word: "toad", hint: "I have a dull and warty skin"},
-    {word: "fish", hint: "sea"},
+    { word: "dog", hint: "woof" },
+    { word: "cat", hint: "meow" },
+    { word: "mouse", hint: "squeak" },
+    { word: "rat", hint: "squeak" },
+    { word: "rabbit", hint: "carrots" },
+    { word: "hamster", hint: "rodent" },
+    { word: "turtle", hint: "shell" },
+    { word: "lizard", hint: "scales" },
+    { word: "snake", hint: "hiss" },
+    { word: "frog", hint: "I'm usually green and slimy" },
+    { word: "toad", hint: "I have a dull and warty skin" },
+    { word: "fish", hint: "sea" },
 
 ];
 
 let countries = [
-    {word: "Lithuania", hint: "Vilnius"},
-    {word: "Latvia", hint: "Riga"},
-    {word: "Estonia", hint: "Tallinn"},
-    {word: "Finland", hint: "Helsinki"},
-    {word: "Sweden", hint: "Stockholm"},
-    {word: "Norway", hint: "Oslo"},
-    {word: "Denmark", hint: "Copenhagen"},
-    {word: "Iceland", hint: "Reykjavik"},
-    {word: "Ireland", hint: "Dublin"},
-    {word: "England", hint: "London"},
-    {word: "Scotland", hint: "Edinburgh"},
-    {word: "Wales", hint: "Cardiff"},
-    {word: "France", hint: "Paris"},
-    {word: "Spain", hint: "Madrid"},
-    {word: "Portugal", hint: "Lisbon"},
-    {word: "Italy", hint: "Rome"},
-    {word: "Greece", hint: "Athens"},
-    {word: "Turkey", hint: "Ankara"},
-    {word: "Russia", hint: "Moscow"},
-    {word: "Ukraine", hint: "Kiev"},
-    {word: "Belarus", hint: "Minsk"},
-    {word: "Poland", hint: "Warsaw"},
-    {word: "Germany", hint: "Berlin"},
-    {word: "Austria", hint: "Vienna"},
-    {word: "Switzerland", hint: "Bern"},
-    {word: "Netherlands", hint: "Amsterdam"},
-    {word: "Belgium", hint: "Brussels"},
-    {word: "Luxembourg", hint: "Luxembourg"},
-    {word: "Czechia", hint: "Prague"},
-    {word: "Slovakia", hint: "Bratislava"},
-    {word: "Hungary", hint: "Budapest"},
-    {word: "Slovenia", hint: "Ljubljana"},
-    {word: "Croatia", hint: "Zagreb"},
-    {word: "Serbia", hint: "Belgrade"},
-    {word: "Macedonia", hint: "Skopje"},
+    { word: "Lithuania", hint: "Vilnius" },
+    { word: "Latvia", hint: "Riga" },
+    { word: "Estonia", hint: "Tallinn" },
+    { word: "Finland", hint: "Helsinki" },
+    { word: "Sweden", hint: "Stockholm" },
+    { word: "Norway", hint: "Oslo" },
+    { word: "Denmark", hint: "Copenhagen" },
+    { word: "Iceland", hint: "Reykjavik" },
+    { word: "Ireland", hint: "Dublin" },
+    { word: "England", hint: "London" },
+    { word: "Scotland", hint: "Edinburgh" },
+    { word: "Wales", hint: "Cardiff" },
+    { word: "France", hint: "Paris" },
+    { word: "Spain", hint: "Madrid" },
+    { word: "Portugal", hint: "Lisbon" },
+    { word: "Italy", hint: "Rome" },
+    { word: "Greece", hint: "Athens" },
+    { word: "Turkey", hint: "Ankara" },
+    { word: "Russia", hint: "Moscow" },
+    { word: "Ukraine", hint: "Kiev" },
+    { word: "Belarus", hint: "Minsk" },
+    { word: "Poland", hint: "Warsaw" },
+    { word: "Germany", hint: "Berlin" },
+    { word: "Austria", hint: "Vienna" },
+    { word: "Switzerland", hint: "Bern" },
+    { word: "Netherlands", hint: "Amsterdam" },
+    { word: "Belgium", hint: "Brussels" },
+    { word: "Luxembourg", hint: "Luxembourg" },
+    { word: "Czechia", hint: "Prague" },
+    { word: "Slovakia", hint: "Bratislava" },
+    { word: "Hungary", hint: "Budapest" },
+    { word: "Slovenia", hint: "Ljubljana" },
+    { word: "Croatia", hint: "Zagreb" },
+    { word: "Serbia", hint: "Belgrade" },
+    { word: "Macedonia", hint: "Skopje" },
+    { word: "Usa", hint: "Land of Freedom" }
 ]
 
-//pavercia zodzius is zodziu objekto i didziasias raides 
-Object.keys(animals).forEach(key =>  {
-    animals[key].word = animals[key].word.toUpperCase();
-})
+let chosenCategoryWordArr = []
 
-Object.keys(countries).forEach(key => {
-    countries[key].word = countries[key].word.toUpperCase();
-})
+function assignWordArrByCategory() {
+    switch (categorySelected) {
+        case "animals":
+            chosenCategoryWordArr = animals;
+            break;
+
+        case "countries":
+            chosenCategoryWordArr = countries;
+            break;
+    }
+}
+assignWordArrByCategory();
+
+//reset word arr storage
+
+// localStorage.setItem("persistentWordArr", JSON.stringify(chosenCategoryWordArr));
+let wordArrBefore=chosenCategoryWordArr;
+//pavercia zodzius is zodziu objekto i didziasias raides
+function arrToUpperCase() {
+    Object.keys(chosenCategoryWordArr).forEach(key => {
+        chosenCategoryWordArr[key].word = chosenCategoryWordArr[key].word.toUpperCase();
+    });
+
+}
+
+
+function setWordArr() {
+    localStorage.setItem("persistentWordArr", JSON.stringify(chosenCategoryWordArr));
+}
+
+function getWordArr() {
+    chosenCategoryWordArr = JSON.parse(localStorage.getItem("persistentWordArr"));
+}
+
+window.onload = function (e) {
+
+    // getWordArr();
+    console.log(chosenCategoryWordArr);
+}
+
+//TODO add hard difficulty functionality
 
 function chooseWordByCategory() {
+    getWordArr();
+    let index = chooseRandIndex(chosenCategoryWordArr);
     categorySelected = localStorage.getItem('categorySelected');
     if (categorySelected == 'vegetables') {
         return vegetables[Math.floor(Math.random() * vegetables.length)];
     } else if (categorySelected == 'countries') {
-        let randomIndex = Math.floor(Math.random() * countries.length);
-        this.randWord= countries[randomIndex].word;
-        this.hint=countries[randomIndex].hint;
+        arrToUpperCase();
+        switch (difficulty) {
+            case "Easy":
+                let valuesEasy = filterEasyDifficulty("countries");
+                this.randWord = valuesEasy[0];
+                this.hint = valuesEasy[1];
+                break;
+
+            case "Medium":
+                let valuesMed = filterMediumDifficukty("countries");
+                this.randWord = valuesMed[0];
+                this.hint = valuesMed[1];
+                break;
+        }
+
+
     } else if (categorySelected == 'animals') {
-        let randomIndex = Math.floor(Math.random() * animals.length);
-        this.randWord= animals[randomIndex].word;
-        this.hint = animals[randomIndex].hint;
+        arrToUpperCase();
+        switch (difficulty) {
+            case "Easy":
+                let valuesEasy = filterEasyDifficulty("animals");
+                chosenCategoryWordArr=valuesEasy;
+                index=chooseRandIndex(valuesEasy);
+                this.randWord = valuesEasy[index]["word"];
+                this.hint = valuesEasy[index]["hint"];
+                break;
+
+            case "Medium":
+                let valuesMed = filterMediumDifficukty("animals");
+                chosenCategoryWordArr = valuesMed;
+                index = chooseRandIndex(valuesMed);
+                this.randWord = valuesMed[index]["word"];
+                this.hint = valuesMed[index]["hint"];
+                break;
+        }
+
     }
 }
 
+function chooseRandIndex(arr) {
+    let index = Math.floor(Math.random() * arr.length);
+    return index;
+}
+
+// function filterArrayByLength(arrOfObjects, wordLengthLower, wordLengthUpper) {
+//     let arr = arrOfObjects.filter(item => item["word"].length >= wordLengthLower && item["word"].length <= wordLengthUpper);
+//     // console.log(arr);
+//     let index = Math.floor(Math.random() * arr.length);
+//     let chosenWord = arr[index].word;
+//     let hintForWord = arr[index].hint;
+//     return [chosenWord, hintForWord];
+// }
+
+function filterArrayByLength(arrOfObjects, wordLengthLower, wordLengthUpper) {
+    let arr = arrOfObjects.filter(item => item["word"].length >= wordLengthLower && item["word"].length <= wordLengthUpper);
+    return arr;
+}
+
+
+function filterEasyDifficulty(category) {
+    switch (category) {
+        case "countries":
+            let valsCountry = filterArrayByLength(chosenCategoryWordArr, 3, 5);
+            // console.log(vals);
+            return [valsCountry[0], valsCountry[1]];
+
+        case "animals":
+            let valsAnimals = filterArrayByLength(chosenCategoryWordArr, 3, 5);
+            return valsAnimals;
+
+    }
+}
+
+function filterMediumDifficukty(category) {
+    switch (category) {
+        case "countries":
+            let valsCountry = filterArrayByLength(chosenCategoryWordArr, 4, 6);
+            // return [valsCountry[0], valsCountry[1]];
+            return valsCountry;
+
+        case "animals":
+            let valsAnimal = filterArrayByLength(chosenCategoryWordArr, 4, 6);
+            // return [valsAnimal[0], valsAnimal[1]];
+
+            console.log(valsAnimal);
+            return valsAnimal;
+
+    }
+}
 let wordObj = new chooseWordByCategory();
 let randWord = wordObj.randWord;
 console.log(randWord);
-// const randWord = words[Math.floor((Math.random() * words.length))];
-
-// let randWord = chooseWordByCategory();
-// let hint = chooseHint();
 
 let hintElement = document.getElementById('hint');
 hintElement.innerHTML = wordObj.hint;
 
 
-const answerArray = [];
 
-for (let i = 0; i < randWord.length; i++) {
-    answerArray[i] = '_';
-    wordToGuess.innerHTML = answerArray.join(' ');
+let answerArray = [];
+
+
+function drawDashesForWord() {
+    for (let i = 0; i < randWord.length; i++) {
+        answerArray[i] = '_';
+        wordToGuess.innerHTML = answerArray.join(' ');
+    }
+
 }
-
-
+drawDashesForWord();
 let remainingLetters = randWord.length;
 
 let A = document.getElementById('A');
@@ -325,7 +467,6 @@ function drawRightArm() {
     ctx.stroke();
 }
 
-
 function drawLeftLeg() {
     var ctx = canvas.getContext('2d');
     ctx.beginPath();
@@ -367,7 +508,6 @@ function drawHangman() {
 }
 
 
-
 function keyPress(letter) {
 
     if (guess.indexOf(letter) === -1) {
@@ -384,13 +524,16 @@ function keyPress(letter) {
                 if (randWord[i] === letter) {
                     correctGuessesIndices.push(i);
                     remainingLetters--;
-                    
+
                 }
             }
         }
         if (remainingLetters === 0) {
-            
-            winScreen();
+
+            removeGuessedWordFromArr(randWord);
+            setWordArr();
+            // getWordArr();
+            correctGuessScreen();
         }
         else {
             correctGuesses++;
@@ -399,13 +542,75 @@ function keyPress(letter) {
     }
 }
 
-function winScreen() {
+function generateNewWord() {
+    let wordObj = new chooseWordByCategory();
+    let randWord = wordObj.randWord;
+
+    let hintElement = document.getElementById('hint');
+    hintElement.innerHTML = wordObj.hint;
+
+}
+
+function resetPlayWindow() {
+    generateNewWord();
+    let crrctGuessWindow = document.getElementById("correctGuessScreen");
+    if (crrctGuessWindow.style.display === "none") {
+        crrctGuessWindow.style.display = "block";
+    }
+    else {
+        crrctGuessWindow.style.display = "none";
+    }
+
+    answerArray = [];
+    drawDashesForWord();
+
+    for (let i = 0; i < btns.length; i++) {
+        btns[i].disabled = false;
+    }
+
+}
+
+//TODO fix display (remove correct guess screen) when winning
+function correctGuessScreen() {
     increaseScore(score);
-    let elementsToRemove = document.getElementsByClassName('hangmanDiv');
-    elementsToRemove[0].parentNode.removeChild(elementsToRemove[0]);
+    // let elementsToRemove = document.getElementsByClassName('hangmanDiv');
+    // elementsToRemove[0].parentNode.removeChild(elementsToRemove[0]);
+
     for (let i = 0; i < btns.length; i++) {
         btns[i].disabled = true;
     }
+
+    let block_to_insert = document.createElement('div');
+    block_to_insert.id = 'correctGuessScreen';
+    block_to_insert.innerHTML = '<h3>Correct!</h3> <button id="continuePlaying">Continue</button>';
+    let container = document.getElementById('container');
+    container.appendChild(block_to_insert);
+
+    let continuePlaying = document.getElementById('continuePlaying');
+
+    continuePlaying.addEventListener('click', function () {
+        if(chosenCategoryWordArr.length==0) {
+            localStorage.setItem("persistentWordArr", JSON.stringify(wordArrBefore));
+            winScreen();
+        }
+        else location.reload();
+        // resetPlayWindow();
+    });
+
+    clearInterval(interval);
+
+}
+
+
+function winScreen() {
+    let elementsToRemove1 = document.getElementsByClassName('hangmanDiv');
+    elementsToRemove1[0].parentNode.removeChild(elementsToRemove1[0]);
+    // for (let i = 0; i < btns.length; i++) {
+    //     btns[i].disabled = true;
+    // }
+    let elementsToRemove2 =document.getElementsByClassName("letterButtons");
+    elementsToRemove2[0].parentNode.removeChild(elementsToRemove2[0]);
+
     let block_to_insert = document.createElement('div');
     block_to_insert.id = 'winScreen';
     block_to_insert.innerHTML = '<h1>YOU WIN!</h1> <button id="playAgain">Play Again</button>';
@@ -418,7 +623,7 @@ function winScreen() {
     }
     );
     clearInterval(interval);
-
+    
 
 }
 
@@ -441,8 +646,10 @@ function loseScreen() {
     }
     );
     clearInterval(interval);
-    //hide keyboard
 
+    resetScore();
+
+    //hide keyboard
     keyboard.style.display = 'none';
 
 
@@ -462,3 +669,24 @@ function drawWord() {
     wordToGuess.innerHTML = answerArray.join(' ');
 }
 
+// function removeGuessedWordFromArr(category, guessedWord) {
+//     switch (category) {
+//         case "animals":
+//             let animalsArr = chosenCategoryWordArr;
+//             animalsArr = animalsArr.filter(element => element.word !== guessedWord);
+//             // console.log(animalsArr);
+//             return animalsArr;
+
+//         case "countries":
+//             let countryArr = chosenCategoryWordArr;
+//             countryArr = countryArr.filter(element => element.word !== guessedWord);
+//             return countryArr;
+//     }
+// }
+
+function removeGuessedWordFromArr(guessedWord) {
+    let index = chosenCategoryWordArr.map(item => item.word).indexOf(guessedWord);
+    console.log(index);
+    chosenCategoryWordArr.splice(index, 1);
+}
+// getWordArr();
