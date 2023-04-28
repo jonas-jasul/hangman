@@ -15,6 +15,7 @@ function handleCategoryClicks(e) {
 const categoryImgs = document.querySelectorAll('.specCategDiv');
 categoryImgs.forEach(img => img.addEventListener('click', handleCategoryClicks));
 var params = new URLSearchParams();
+var diffParam = new URLSearchParams();
 if (enterBtn) {
     enterBtn.addEventListener('click', function () {
         if (categorySelected != null) {
@@ -23,8 +24,9 @@ if (enterBtn) {
             localStorage.setItem('categorySelected', categorySelected);
             console.log(categorySelected);
 
+            diffParam.append('difficulty', difficultyText.innerHTML);
             //alternatyvus budas perduoti kategorija
-            var url = "gameWindow.html?" + params.toString();
+            var url = "gameWindow.html?" + params.toString() + "&" + diffParam.toString();
             enterHref.href = url;
         }
         else {

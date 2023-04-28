@@ -246,6 +246,19 @@ canvas {
     text-shadow: 2px 2px 2px black;
 }
 
+#correctGuessScreen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(255, 141, 100);
+}
+#correctGuessScreen h3 {
+    font-family: 'Courier New', Courier, monospace;
+    color: blue;
+    font-size:2em;
+    text-shadow: 1px 1px 1px black;
+}
 #enterBtn {
     margin-top: 0vh;
 }
@@ -289,6 +302,31 @@ canvas {
     background-color: rgb(250, 124, 78);
     padding-right: 5vh;
     padding-left: 1.8vw;
+}
+
+#difficultyDisplayDiv {
+    font-family: 'Courier New', Courier, monospace;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+}
+#difficultyDisplay {
+    padding: 1vh;
+}
+
+.hard {
+    background-color: red;
+    color:white
+}
+
+.medium {
+    background-color: blue;
+    color:white
+}
+.easy {
+    background-color: green;
+    color: white;
 }
 
 #scoreDiv #score {
