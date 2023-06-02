@@ -1,32 +1,6 @@
 let guess = [];
 let wordInProgress = null;
 
-let vegetables = [
-    'carrot',
-    'broccoli',
-    'cauliflower',
-    'cucumber',
-    'tomato',
-    'potato',
-    'onion',
-    'garlic',
-    'spinach',
-    'lettuce',
-    'celery',
-    'asparagus',
-    'mushroom',
-    'peas',
-    'zucchini',
-    'corn',
-    'beetroot',
-    'radish',
-];
-
-vegetables = vegetables.map(function (item) {
-    return item.toUpperCase();
-});
-
-
 
 let score = 0;
 score = localStorage.getItem('score');
@@ -139,145 +113,229 @@ let animals = [
     { word: "dog", hint: "woof" },
     { word: "cat", hint: "meow" },
     { word: "mouse", hint: "squeak" },
-    { word: "rat", hint: "squeak" },
+    { word: "rat", hint: "sewers" },
     { word: "rabbit", hint: "carrots" },
-    { word: "hamster", hint: "rodent" },
+    { word: "hamster", hint: "pet rodent" },
     { word: "turtle", hint: "shell" },
     { word: "lizard", hint: "scales" },
     { word: "snake", hint: "hiss" },
     { word: "frog", hint: "I'm usually green and slimy" },
     { word: "toad", hint: "I have a dull and warty skin" },
     { word: "fish", hint: "sea" },
+    { word: "giraffe", hint: "tall neck"},
+    { word: "zebra", hint: "black and white"},
+    { word: "lion", hint: "pride"},
+    { word: "crocodile", hint: "swamp, scales, big teeth"},
+    { word: "bird", hint: "fly, wings"}, 
+    { word: "ant", hint: "tiny, lives in hills"},
 
 ];
 
 let countries = [
-    { word: "Lithuania", hint: "Vilnius" },
-    { word: "Latvia", hint: "Riga" },
-    { word: "Estonia", hint: "Tallinn" },
-    { word: "Finland", hint: "Helsinki" },
-    { word: "Sweden", hint: "Stockholm" },
+    { word: "Lithuania", hint: "Largest and most populous Baltic country" },
+    { word: "Latvia", hint: "A country in between two other Baltic countries" },
+    { word: "Estonia", hint: "Northernmost Baltic country" },
+    { word: "Finland", hint: "Happiest country in the world" },
+    { word: "Sweden", hint: "Where PewDiePie is from" },
     { word: "Norway", hint: "Oslo" },
-    { word: "Denmark", hint: "Copenhagen" },
-    { word: "Iceland", hint: "Reykjavik" },
+    { word: "Denmark", hint: "Second happiest country in the world" },
+    { word: "Iceland", hint: "Island + ice" },
     { word: "Ireland", hint: "Dublin" },
-    { word: "England", hint: "London" },
-    { word: "Scotland", hint: "Edinburgh" },
-    { word: "Wales", hint: "Cardiff" },
-    { word: "France", hint: "Paris" },
-    { word: "Spain", hint: "Madrid" },
-    { word: "Portugal", hint: "Lisbon" },
-    { word: "Italy", hint: "Rome" },
-    { word: "Greece", hint: "Athens" },
-    { word: "Turkey", hint: "Ankara" },
-    { word: "Russia", hint: "Moscow" },
-    { word: "Ukraine", hint: "Kiev" },
-    { word: "Belarus", hint: "Minsk" },
-    { word: "Poland", hint: "Warsaw" },
-    { word: "Germany", hint: "Berlin" },
+    { word: "England", hint: "People here like to drink tea" },
+    { word: "France", hint: "Eiffel tower" },
+    { word: "Spain", hint: "European country where people really like football" },
+    { word: "Russia", hint: "Largest country in the world"},
+    { word: "Portugal", hint: "Westernmost country in Europe" },
+    { word: "Italy", hint: "Pizza tower" },
+    { word: "Greece", hint: "Where certain ancient myths and legends come from" },
+    { word: "Ukraine", hint: "Rhymes with 'crane'" },
+    { word: "Poland", hint: "A large country in Eastern Europe" },
+    { word: "Germany", hint: "European country famous for its cars" },
     { word: "Austria", hint: "Vienna" },
-    { word: "Switzerland", hint: "Bern" },
-    { word: "Netherlands", hint: "Amsterdam" },
-    { word: "Belgium", hint: "Brussels" },
-    { word: "Luxembourg", hint: "Luxembourg" },
+    { word: "Switzerland", hint: "European country famous for its mountains" },
+    { word: "Netherlands", hint: "European country where marijuana is legal" },
+    { word: "Belgium", hint: "Famous for its delicious chocolate" },
+    { word: "Luxembourg", hint: "Its capital is the same word as the country itself" },
     { word: "Czechia", hint: "Prague" },
-    { word: "Slovakia", hint: "Bratislava" },
-    { word: "Hungary", hint: "Budapest" },
-    { word: "Slovenia", hint: "Ljubljana" },
-    { word: "Croatia", hint: "Zagreb" },
-    { word: "Serbia", hint: "Belgrade" },
-    { word: "Macedonia", hint: "Skopje" },
-    { word: "Usa", hint: "Land of Freedom" }
+    { word: "Scotland", hint: "Men wearing skirts"},
+    { word: "Hungary", hint: "Rhymes with 'hungry" },
 ]
 
-let chosenCategoryWordArr = []
+let chosenCategoryWordArr = [];
+
 
 function assignWordArrByCategory() {
     switch (categorySelected) {
         case "animals":
-            chosenCategoryWordArr = animals;
-            break;
+            return animals;
 
         case "countries":
-            chosenCategoryWordArr = countries;
-            break;
+            return countries
+
     }
 }
-assignWordArrByCategory();
+
+chosenCategoryWordArr = getArrayBasedOnDiffAndCateg(difficulty, categorySelected);
 
 //reset word arr storage
 
 // localStorage.setItem("persistentWordArr", JSON.stringify(chosenCategoryWordArr));
-let wordArrBefore=chosenCategoryWordArr;
-//pavercia zodzius is zodziu objekto i didziasias raides
+let backupArray = [];
+
+function getWordArr() {
+    chosenCategoryWordArr = JSON.parse(localStorage.getItem("persistentWordArr"));
+
+}
+function setWordArr() {
+    localStorage.setItem("persistentWordArr", JSON.stringify(chosenCategoryWordArr));
+}
+
 function arrToUpperCase() {
     Object.keys(chosenCategoryWordArr).forEach(key => {
         chosenCategoryWordArr[key].word = chosenCategoryWordArr[key].word.toUpperCase();
     });
 
 }
-
-
-function setWordArr() {
-    localStorage.setItem("persistentWordArr", JSON.stringify(chosenCategoryWordArr));
-}
-
-function getWordArr() {
-    chosenCategoryWordArr = JSON.parse(localStorage.getItem("persistentWordArr"));
-}
-
 window.onload = function (e) {
+    localStorage.setItem("chosenCategoryWordArr", JSON.stringify(chosenCategoryWordArr));
 
-    // getWordArr();
-    console.log(chosenCategoryWordArr);
+
 }
+function getArrayBasedOnDiffAndCateg(diffic, categ) {
 
-//TODO add hard difficulty functionality
-
-function chooseWordByCategory() {
-    getWordArr();
-    let index = chooseRandIndex(chosenCategoryWordArr);
-    categorySelected = localStorage.getItem('categorySelected');
-    if (categorySelected == 'vegetables') {
-        return vegetables[Math.floor(Math.random() * vegetables.length)];
-    } else if (categorySelected == 'countries') {
+    if (categ === 'animals') {
         arrToUpperCase();
-        switch (difficulty) {
+        switch (diffic) {
+            case "Easy":
+                let valuesEasy = filterEasyDifficulty("animals");
+                return valuesEasy;
+
+            case "Medium":
+                let valuesMed = filterMediumDifficukty("animals");
+                return valuesMed;
+
+            case "Hard":
+                let valuesHard = filterHardDifficulty("animals");
+                return valuesHard;
+
+        }
+    }
+
+    else if (categ === 'countries') {
+        arrToUpperCase();
+        switch (diffic) {
             case "Easy":
                 let valuesEasy = filterEasyDifficulty("countries");
-                this.randWord = valuesEasy[0];
-                this.hint = valuesEasy[1];
-                break;
+                return valuesEasy;
 
             case "Medium":
                 let valuesMed = filterMediumDifficukty("countries");
-                this.randWord = valuesMed[0];
-                this.hint = valuesMed[1];
+                return valuesMed;
+
+            case "Hard":
+                let valuesHard = filterHardDifficulty("countries");
+                return valuesHard;
+        }
+    }
+}
+let usedWords = [];
+let index;
+
+
+
+function chooseWordByCategory() {
+
+    categorySelected = localStorage.getItem('categorySelected');
+    if (categorySelected == 'countries') {
+        if (localStorage.getItem("chosenCategoryWordArr")) {
+            chosenCategoryWordArr = JSON.parse(localStorage.getItem("chosenCategoryWordArr"));
+        } else {
+            localStorage.setItem("chosenCategoryWordArr", JSON.stringify(chosenCategoryWordArr));
+        }
+
+        if (chosenCategoryWordArr.length === 0) {
+            chosenCategoryWordArr = getArrayBasedOnDiffAndCateg(difficulty, categorySelected);
+            localStorage.setItem("chosenCategoryWordArr", JSON.stringify(chosenCategoryWordArr));
+            winScreen();
+        }
+
+
+        switch (difficulty) {
+            case "Easy":
+                //let valuesEasy = filterEasyDifficulty("countries");
+                //chosenCategoryWordArr = valuesEasy;
+                arrToUpperCase();
+                index = chooseRandIndex(chosenCategoryWordArr);
+                this.randWord = chosenCategoryWordArr[index]["word"];
+                this.hint = chosenCategoryWordArr[index]["hint"];
+                break;
+
+            case "Medium":
+                //let valuesMed = filterMediumDifficukty("countries");
+                //chosenCategoryWordArr = valuesMed;
+                arrToUpperCase();
+                index = chooseRandIndex(chosenCategoryWordArr);
+                this.randWord = chosenCategoryWordArr[index]["word"];
+                this.hint = chosenCategoryWordArr[index]["hint"];
+                break;
+
+            case "Hard":
+                //let valuesHard = filterHardDifficulty("countries");
+                // chosenCategoryWordArr = valuesHard;
+                arrToUpperCase();
+                index = chooseRandIndex(chosenCategoryWordArr);
+                this.randWord = chosenCategoryWordArr[index]["word"];
+                this.hint = chosenCategoryWordArr[index]["hint"];
                 break;
         }
 
 
     } else if (categorySelected == 'animals') {
-        arrToUpperCase();
+
+
+        if (localStorage.getItem("chosenCategoryWordArr")) {
+            chosenCategoryWordArr = JSON.parse(localStorage.getItem("chosenCategoryWordArr"));
+        } else {
+            localStorage.setItem("chosenCategoryWordArr", JSON.stringify(chosenCategoryWordArr));
+        }
+
+        if (chosenCategoryWordArr.length === 0) {
+            chosenCategoryWordArr = getArrayBasedOnDiffAndCateg(difficulty, categorySelected);
+            localStorage.setItem("chosenCategoryWordArr", JSON.stringify(chosenCategoryWordArr));
+            winScreen();
+        }
+
+
         switch (difficulty) {
             case "Easy":
-                let valuesEasy = filterEasyDifficulty("animals");
-                chosenCategoryWordArr=valuesEasy;
-                index=chooseRandIndex(valuesEasy);
-                this.randWord = valuesEasy[index]["word"];
-                this.hint = valuesEasy[index]["hint"];
+                //let valuesEasy = filterEasyDifficulty("animals");
+                // chosenCategoryWordArr = getArrayBasedOnDiffAndCateg(difficulty, categorySelected);
+                arrToUpperCase();
+                index = chooseRandIndex(chosenCategoryWordArr);
+                this.randWord = chosenCategoryWordArr[index]["word"];
+                this.hint = chosenCategoryWordArr[index]["hint"];
                 break;
 
             case "Medium":
-                let valuesMed = filterMediumDifficukty("animals");
-                chosenCategoryWordArr = valuesMed;
-                index = chooseRandIndex(valuesMed);
-                this.randWord = valuesMed[index]["word"];
-                this.hint = valuesMed[index]["hint"];
+                //let valuesMed = filterMediumDifficukty("animals");
+                // chosenCategoryWordArr = valuesMed;
+                arrToUpperCase();
+                index = chooseRandIndex(chosenCategoryWordArr);
+                this.randWord = chosenCategoryWordArr[index]["word"];
+                this.hint = chosenCategoryWordArr[index]["hint"];
+                break;
+
+            case "Hard":
+                arrToUpperCase();
+                index = chooseRandIndex(chosenCategoryWordArr);
+                this.randWord = chosenCategoryWordArr[index]["word"];
+                this.hint = chosenCategoryWordArr[index]["hint"];
                 break;
         }
 
     }
+
+
 }
 
 function chooseRandIndex(arr) {
@@ -285,30 +343,19 @@ function chooseRandIndex(arr) {
     return index;
 }
 
-// function filterArrayByLength(arrOfObjects, wordLengthLower, wordLengthUpper) {
-//     let arr = arrOfObjects.filter(item => item["word"].length >= wordLengthLower && item["word"].length <= wordLengthUpper);
-//     // console.log(arr);
-//     let index = Math.floor(Math.random() * arr.length);
-//     let chosenWord = arr[index].word;
-//     let hintForWord = arr[index].hint;
-//     return [chosenWord, hintForWord];
-// }
 
 function filterArrayByLength(arrOfObjects, wordLengthLower, wordLengthUpper) {
     let arr = arrOfObjects.filter(item => item["word"].length >= wordLengthLower && item["word"].length <= wordLengthUpper);
     return arr;
 }
-
-
 function filterEasyDifficulty(category) {
     switch (category) {
         case "countries":
-            let valsCountry = filterArrayByLength(chosenCategoryWordArr, 3, 5);
-            // console.log(vals);
-            return [valsCountry[0], valsCountry[1]];
+            let valsCountry = filterArrayByLength(countries, 3, 5);
+            return valsCountry;
 
         case "animals":
-            let valsAnimals = filterArrayByLength(chosenCategoryWordArr, 3, 5);
+            let valsAnimals = filterArrayByLength(animals, 3, 5);
             return valsAnimals;
 
     }
@@ -317,23 +364,33 @@ function filterEasyDifficulty(category) {
 function filterMediumDifficukty(category) {
     switch (category) {
         case "countries":
-            let valsCountry = filterArrayByLength(chosenCategoryWordArr, 4, 6);
+            let valsCountry = filterArrayByLength(countries, 4, 6);
             // return [valsCountry[0], valsCountry[1]];
             return valsCountry;
 
         case "animals":
-            let valsAnimal = filterArrayByLength(chosenCategoryWordArr, 4, 6);
+            let valsAnimal = filterArrayByLength(animals, 4, 6);
             // return [valsAnimal[0], valsAnimal[1]];
-
-            console.log(valsAnimal);
             return valsAnimal;
 
     }
 }
+
+function filterHardDifficulty(category) {
+    switch (category) {
+        case "countries":
+            let valsCountry = filterArrayByLength(countries, 6, 13);
+            return valsCountry;
+
+        case "animals":
+            let valsAnimals = filterArrayByLength(animals, 5, 12);
+            return valsAnimals;
+    }
+}
+
 let wordObj = new chooseWordByCategory();
 let randWord = wordObj.randWord;
 console.log(randWord);
-
 let hintElement = document.getElementById('hint');
 hintElement.innerHTML = wordObj.hint;
 
@@ -529,10 +586,7 @@ function keyPress(letter) {
             }
         }
         if (remainingLetters === 0) {
-
-            removeGuessedWordFromArr(randWord);
-            setWordArr();
-            // getWordArr();
+            //  chosenCategoryWordArr.splice(index, 1);
             correctGuessScreen();
         }
         else {
@@ -544,7 +598,7 @@ function keyPress(letter) {
 
 function generateNewWord() {
     let wordObj = new chooseWordByCategory();
-    let randWord = wordObj.randWord;
+    randWord = wordObj.randWord;
 
     let hintElement = document.getElementById('hint');
     hintElement.innerHTML = wordObj.hint;
@@ -569,12 +623,12 @@ function resetPlayWindow() {
     }
 
 }
+let keyboard = document.querySelector('.letterButtons');
 
-//TODO fix display (remove correct guess screen) when winning
 function correctGuessScreen() {
+    keyboard.style.display = "none";
+
     increaseScore(score);
-    // let elementsToRemove = document.getElementsByClassName('hangmanDiv');
-    // elementsToRemove[0].parentNode.removeChild(elementsToRemove[0]);
 
     for (let i = 0; i < btns.length; i++) {
         btns[i].disabled = true;
@@ -587,13 +641,15 @@ function correctGuessScreen() {
     container.appendChild(block_to_insert);
 
     let continuePlaying = document.getElementById('continuePlaying');
-
     continuePlaying.addEventListener('click', function () {
-        if(chosenCategoryWordArr.length==0) {
-            localStorage.setItem("persistentWordArr", JSON.stringify(wordArrBefore));
-            winScreen();
+        if (chosenCategoryWordArr.length === 0) {
+            // winScreen();
         }
-        else location.reload();
+        else {
+            chosenCategoryWordArr.splice(index, 1);
+            localStorage.setItem("chosenCategoryWordArr", JSON.stringify(chosenCategoryWordArr));
+            location.reload();
+        }
         // resetPlayWindow();
     });
 
@@ -602,13 +658,14 @@ function correctGuessScreen() {
 }
 
 
+
 function winScreen() {
     let elementsToRemove1 = document.getElementsByClassName('hangmanDiv');
     elementsToRemove1[0].parentNode.removeChild(elementsToRemove1[0]);
     // for (let i = 0; i < btns.length; i++) {
     //     btns[i].disabled = true;
     // }
-    let elementsToRemove2 =document.getElementsByClassName("letterButtons");
+    let elementsToRemove2 = document.getElementsByClassName("letterButtons");
     elementsToRemove2[0].parentNode.removeChild(elementsToRemove2[0]);
 
     let block_to_insert = document.createElement('div');
@@ -622,12 +679,16 @@ function winScreen() {
         location.reload();
     }
     );
+
     clearInterval(interval);
-    
+    localStorage.removeItem("persistentWordArr");
+    wordObj = new chooseWordByCategory();
+    chosenCategoryWordArr = getArrayBasedOnDiffAndCateg(difficulty, categorySelected);
+    resetPlayWindow();
+
 
 }
 
-let keyboard = document.querySelector('.letterButtons');
 
 function loseScreen() {
     for (let i = 0; i < btns.length; i++) {
@@ -668,25 +729,3 @@ function drawWord() {
     }
     wordToGuess.innerHTML = answerArray.join(' ');
 }
-
-// function removeGuessedWordFromArr(category, guessedWord) {
-//     switch (category) {
-//         case "animals":
-//             let animalsArr = chosenCategoryWordArr;
-//             animalsArr = animalsArr.filter(element => element.word !== guessedWord);
-//             // console.log(animalsArr);
-//             return animalsArr;
-
-//         case "countries":
-//             let countryArr = chosenCategoryWordArr;
-//             countryArr = countryArr.filter(element => element.word !== guessedWord);
-//             return countryArr;
-//     }
-// }
-
-function removeGuessedWordFromArr(guessedWord) {
-    let index = chosenCategoryWordArr.map(item => item.word).indexOf(guessedWord);
-    console.log(index);
-    chosenCategoryWordArr.splice(index, 1);
-}
-// getWordArr();

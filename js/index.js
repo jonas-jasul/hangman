@@ -28,6 +28,10 @@ if (enterBtn) {
             //alternatyvus budas perduoti kategorija
             var url = "gameWindow.html?" + params.toString() + "&" + diffParam.toString();
             enterHref.href = url;
+            localStorage.removeItem("categorySelected");
+            localStorage.removeItem("chosenCategoryWordArr");
+            localStorage.setItem("categorySelected", categorySelected);
+            
         }
         else {
             alert('Please select a category');
